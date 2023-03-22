@@ -44,7 +44,6 @@
 <script>
 import EventUpdate from "./mixins/EventUpdate";
 import mitt from 'mitt'
-const emitter = mitt()
 
 export default {
   mixins: [EventUpdate],
@@ -60,6 +59,7 @@ export default {
     };
   },
   created () {
+    const emitter = mitt()
     emitter.on("SHOW_SNACKBAR", (e) => {
       this.snackbar = {
         show: true,
