@@ -2,7 +2,7 @@
   <v-app>
     <div id="app">
       <img alt="Vue logo" src="./assets/logo.png" />
-      <h1>Build Ver 006</h1>
+      <h1>Build Ver 007</h1>
       <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
