@@ -2,7 +2,7 @@
   <v-app>
     <div id="app">
       <img alt="Vue logo" src="./assets/logo.png" />
-      <h1>Build Ver 003</h1>
+      <h1>Build Ver 004</h1>
       <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -44,6 +44,7 @@
 <script>
 import EventUpdate from "./mixins/EventUpdate";
 import mitt from 'mitt'
+const emitter = mitt()
 
 export default {
   mixins: [EventUpdate],
@@ -59,7 +60,6 @@ export default {
     };
   },
   created () {
-    const emitter = mitt()
     emitter.on("SHOW_SNACKBAR", (e) => {
       this.snackbar = {
         show: true,
@@ -68,6 +68,7 @@ export default {
         icon: e.icon,
       };
     });
+    emitter.emit('SHOW_SNACKBAR')
   },
   mounted () {
     if (typeof window !== undefined && window._VMA === undefined) {
