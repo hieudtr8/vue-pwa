@@ -2,7 +2,7 @@
   <v-app>
     <div id="app">
       <img alt="Vue logo" src="./assets/logo.png" />
-      <h1>Build Ver 004</h1>
+      <h1>Build Ver 006</h1>
       <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -61,6 +61,7 @@ export default {
   },
   created () {
     emitter.on("SHOW_SNACKBAR", (e) => {
+      console.log(`🌊 | file: App.vue:71 | e:`, e);
       this.snackbar = {
         show: true,
         text: e.text,
