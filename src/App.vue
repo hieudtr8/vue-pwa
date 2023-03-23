@@ -42,15 +42,18 @@
 </template>
 
 <script>
-import EventUpdate from "./mixins/EventUpdate";
+// import EventUpdate from "./mixins/EventUpdate";
 import mitt from 'mitt'
 const emitter = mitt()
 
 export default {
-  mixins: [EventUpdate],
+  // mixins: [EventUpdate],
   name: "App",
   data () {
     return {
+      refreshing: false,
+      registration: null,
+      updateExists: false,
       snackbar: {
         show: false,
         text: "",
@@ -60,14 +63,22 @@ export default {
     };
   },
   created () {
+    document.addEventListener('swUpdated', this.updateAvailable, { once: true })
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (this.refreshing) return
+      this.refreshing = true
+      // Here the actual reload of the page occurs
+      window.location.reload()
+    })
     emitter.on("SHOW_SNACKBAR", (e) => {
-      console.log(`🌊 | file: App.vue:71 | e:`, e);
-      this.snackbar = {
-        show: true,
-        text: e.text,
-        color: e.color,
-        icon: e.icon,
-      };
+      if (e) {
+        this.snackbar = {
+          show: true,
+          text: e.text ? e.text : "",
+          color: e.color ? e.color : "",
+          icon: e.icon ? e.icon : "",
+        };
+      }
     });
     emitter.emit('SHOW_SNACKBAR')
   },
@@ -76,6 +87,32 @@ export default {
       window._VMA = this;
     }
   },
+  methods: {
+     // Store the SW registration so we can send it a message
+    // We use `updateExists` to control whatever alert, toast, dialog, etc we want to use
+    // To alert the user there is an update they need to refresh for
+
+    updateAvailable(event) {
+      console.log(`🌊 | file: App.vue:95 | event:`, event);
+      this.registration = event.detail
+      this.updateExists = true
+      this.refreshBrowser()
+    },
+
+    // Called when the user accepts the update
+    refreshApp() {
+      this.updateExists = false
+      // Make sure we only send a 'skip waiting' message if the SW is waiting
+      if (!this.registration || !this.registration.waiting) return
+      // send message to SW to skip the waiting and activate the new SW
+      this.registration.waiting.postMessage({ type: 'SKIP_WAITING' })
+      window._VMA.$emit("SHOW_SNACKBAR", {
+        text: "Update Complete",
+        color: "success",
+        icon: "mdi-checkbox-marked-circle"
+      })
+    },
+  }
 
 };
 </script>
