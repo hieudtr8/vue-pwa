@@ -71,6 +71,7 @@ export default {
       window.location.reload()
     })
     emitter.on("SHOW_SNACKBAR", (e) => {
+      console.log(`🌊 | file: App.vue:83 | e:`, e);
       if (e) {
         this.snackbar = {
           show: true,
@@ -96,7 +97,7 @@ export default {
       console.log(`🌊 | file: App.vue:95 | event:`, event);
       this.registration = event.detail
       this.updateExists = true
-      this.refreshBrowser()
+      // this.refreshBrowser()
     },
 
     // Called when the user accepts the update
