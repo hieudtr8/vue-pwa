@@ -14,14 +14,12 @@
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
-      <v-snackbar class="mb-5" bottom :value="updateExists" :timeout="-1" color="primary" height="60">
+      <v-snackbar class="mb-5" bottom v-model="updateExists" :timeout="-1" color="primary" height="60">
         <v-icon class="mr-2"> mdi-download</v-icon>
         <span>An update is available</span>
-        <template v-slot:action="{ attrs }">
-          <v-btn outlined v-bind="attrs" text @click="refreshApp">
-            Update
-          </v-btn>
-        </template>
+        <v-btn outlined text @click="refreshApp">
+          Update
+        </v-btn>
       </v-snackbar>
       <v-snackbar class="pa-0" :timeout="3000" app top centered elevation="24" :color="snackbar.color"
         v-model="snackbar.show">
