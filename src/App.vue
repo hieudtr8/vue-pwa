@@ -2,17 +2,9 @@
   <v-app>
     <div id="app">
       <img alt="Vue logo" src="./assets/logo.png" />
-      <h1>Build Ver 0011</h1>
+      <h1>Build Ver 0012</h1>
       <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        Content ver 12
       </p>
       <v-snackbar class="mb-5" bottom v-model="updateExists" :timeout="-1" color="primary" height="60">
         <v-icon class="mr-2"> mdi-download</v-icon>
