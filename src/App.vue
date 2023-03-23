@@ -19,7 +19,7 @@
           </div>
         </div>
       </v-snackbar>
-      <v-snackbar class="pa-0 mb-5q" :timeout="3000" app top centered elevation="24" :color="snackbar.color"
+      <v-snackbar class="pa-0 mb-5q" app top centered elevation="24" :color="snackbar.color"
         v-model="snackbar.show" height="60">
         <div class="mx-auto" style="width: 200px">
           <v-icon class="pr-1" small color="white">
@@ -29,18 +29,22 @@
             {{ snackbar.text }}
           </span>
         </div>
+        <template v-slot:actions>
+          <v-btn
+            variant="text"
+            @click="confirmReadUpdate"
+          >
+            Close
+        </v-btn>
+      </template>
       </v-snackbar>
     </div>
   </v-app>
 </template>
 
 <script>
-// import EventUpdate from "./mixins/EventUpdate";
-import mitt from 'mitt'
-const emitter = mitt()
 
 export default {
-  // mixins: [EventUpdate],
   name: "App",
   data () {
     return {
@@ -63,18 +67,15 @@ export default {
       // Here the actual reload of the page occurs
       window.location.reload()
     })
-    emitter.on("SHOW_SNACKBAR", (e) => {
-      console.log(`🌊 | file: App.vue:83 | e:`, e);
-      if (e) {
-        this.snackbar = {
-          show: true,
-          text: e.text ? e.text : "",
-          color: e.color ? e.color : "",
-          icon: e.icon ? e.icon : "",
-        };
-      }
-    });
-    emitter.emit('SHOW_SNACKBAR')
+    const savedSuccessMessage = localStorage.getItem('updateSuccess') ? JSON.parse(localStorage.getItem('updateSuccess')) : null;
+    if (savedSuccessMessage) {
+      this.snackbar = {
+        show: true,
+        text: savedSuccessMessage.text, 
+        color: savedSuccessMessage.color,
+        icon: savedSuccessMessage.icon,
+      };
+    }
   },
   mounted () {
     if (typeof window !== undefined && window._VMA === undefined) {
@@ -100,12 +101,17 @@ export default {
       if (!this.registration || !this.registration.waiting) return
       // send message to SW to skip the waiting and activate the new SW
       this.registration.waiting.postMessage({ type: 'SKIP_WAITING' })
-      window._VMA.$emit("SHOW_SNACKBAR", {
+      const successMessage = {
         text: "Update Complete",
         color: "success",
         icon: "mdi-checkbox-marked-circle"
-      })
+      }
+      localStorage.setItem('updateSuccess', JSON.stringify(successMessage))
     },
+    confirmReadUpdate() {
+      localStorage.removeItem("updateSuccess");
+      this.snackbar.show = false;
+    }
   }
 
 };
