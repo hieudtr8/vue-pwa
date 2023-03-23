@@ -6,26 +6,35 @@
       <p>
         Content ver 12
       </p>
-      <v-snackbar class="mb-5" bottom v-model="updateExists" :timeout="-1" color="primary" height="60">
-        <v-icon class="mr-2"> mdi-download</v-icon>
-        <span>An update is available</span>
-        <v-btn outlined text @click="refreshApp">
-          Update
-        </v-btn>
+      <v-icon
+        color="success"
+        icon="mdi-check-circle"
+        size="large"
+        @click = "updateExists = true"
+      ></v-icon>
+      <v-snackbar class="mb-5" bottom v-model="updateExists" :timeout="-1" color="success" height="90">
+        <div class="mx-auto" style="width: 200px">
+          <div class="mb-3">
+            <v-icon class="mr-2" icon="mdi-download"></v-icon>
+            <span>An update is available</span>
+          </div>
+          <div>
+            <v-btn outlined text @click="refreshApp">
+              Update application
+            </v-btn>
+          </div>
+        </div>
       </v-snackbar>
-      <v-snackbar class="pa-0" :timeout="3000" app top centered elevation="24" :color="snackbar.color"
-        v-model="snackbar.show">
-        <v-icon class="pr-1" small color="white">
-          {{ snackbar.icon }}
-        </v-icon>
-        <span style="font-weight: 600" color="white">
-          {{ snackbar.text }}
-        </span>
-        <template v-slot:action="{ attrs }">
-          <v-btn icon v-bind="attrs" @click="snackbar.show = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </template>
+      <v-snackbar class="pa-0 mb-5q" :timeout="3000" app top centered elevation="24" :color="snackbar.color"
+        v-model="snackbar.show" height="60">
+        <div class="mx-auto" style="width: 200px">
+          <v-icon class="pr-1" small color="white">
+            {{ snackbar.icon }}
+          </v-icon>
+          <span style="font-weight: 600" color="white">
+            {{ snackbar.text }}
+          </span>
+        </div>
       </v-snackbar>
     </div>
   </v-app>
