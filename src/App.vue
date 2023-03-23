@@ -2,16 +2,10 @@
   <v-app>
     <div id="app">
       <img alt="Vue logo" src="./assets/logo.png" />
-      <h1>Build Ver 0012</h1>
+      <h1>Build Ver 0013</h1>
       <p>
-        Content ver 12
+        Content ver 13
       </p>
-      <v-icon
-        color="success"
-        icon="mdi-check-circle"
-        size="large"
-        @click = "updateExists = true"
-      ></v-icon>
       <v-snackbar class="mb-5" bottom v-model="updateExists" :timeout="-1" color="success" height="90">
         <div class="mx-auto" style="width: 200px">
           <div class="mb-3">
