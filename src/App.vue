@@ -2,9 +2,9 @@
   <v-app>
     <div id="app">
       <img alt="Vue logo" src="./assets/logo.png" />
-      <h1>Build Ver 0016</h1>
+      <h1>Build Ver 0017</h1>
       <p>
-        Content ver 16
+        Content ver 17
       </p>
       <v-snackbar class="mb-5" bottom v-model="updateExists" :timeout="-1" color="success" height="90">
         <div class="mx-auto" style="width: 200px">
